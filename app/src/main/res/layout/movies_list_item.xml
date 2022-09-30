@@ -9,9 +9,10 @@
 
     <ImageView
         android:id="@+id/iv_movie_poster"
-        tools:src="@drawable/ic_launcher_background"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:src="@drawable/morbius"
+        android:scaleType="centerCrop"
+        android:layout_height="220dp"
+        android:layout_width="150dp"
         android:contentDescription="Movie poster" />
 
     <LinearLayout
