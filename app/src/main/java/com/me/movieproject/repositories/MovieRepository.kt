@@ -9,18 +9,16 @@ sealed class Result<out R> {
     data class Success<out T>(val data: T) : Result<T>()
     data class Error(val exception: Exception) : Result<Nothing>()
 }
-private const val API_KEY = "9d24789efabca4c463fa0234a6ca34ff"
-
 
 class MovieRepository {
 
     suspend fun loadGenres(): Result<List<Genre>> {
-
         return withContext(Dispatchers.IO){
             try {
-                Result.Success(Api.api.getGenres(API_KEY).genres)
+                return@withContext Result.Success(Api.api.getGenres().genres)
+
             } catch (e: Exception) {
-                Result.Error(e)
+                return@withContext Result.Error(e)
             }
         }
     }

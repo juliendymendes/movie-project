@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.me.movieproject.R
 import com.me.movieproject.adapters.GenresListAdapter
 import com.me.movieproject.databinding.FragmentListBinding
+import com.me.movieproject.model.Genre
 import com.me.movieproject.viewmodel.GenreViewModel
 
 class ListFragment : Fragment() {
@@ -21,10 +22,9 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentListBinding.inflate(layoutInflater)
-        binding.apply {
-            lifecycleOwner = viewLifecycleOwner
-            genresList.adapter = GenresListAdapter()
-        }
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.genresList.adapter = GenresListAdapter()
+        binding.genreViewModel = genreViewModel
 
         return binding.root
     }
