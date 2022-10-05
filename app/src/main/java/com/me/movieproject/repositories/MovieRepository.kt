@@ -2,6 +2,7 @@ package com.me.movieproject.repositories
 
 import com.me.movieproject.api.Api
 import com.me.movieproject.model.Genre
+import com.me.movieproject.model.Movie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -18,6 +19,16 @@ class MovieRepository {
                 return@withContext Result.Success(Api.api.getGenres().genres)
 
             } catch (e: Exception) {
+                return@withContext Result.Error(e)
+            }
+        }
+    }
+
+    suspend fun loadPopularMovies(): Result<List<Movie>>{
+        return withContext(Dispatchers.IO){
+            try{
+                return@withContext Result.Success(Api.api.getPopularMovies().results)
+            }catch (e: Exception){
                 return@withContext Result.Error(e)
             }
         }

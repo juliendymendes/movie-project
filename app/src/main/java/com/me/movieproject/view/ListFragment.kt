@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.me.movieproject.R
 import com.me.movieproject.adapters.GenresListAdapter
+import com.me.movieproject.adapters.PopularMoviesListAdapter
 import com.me.movieproject.databinding.FragmentListBinding
 import com.me.movieproject.model.Genre
 import com.me.movieproject.viewmodel.GenreViewModel
@@ -25,6 +26,7 @@ class ListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.genresList.adapter = GenresListAdapter()
         binding.genreViewModel = genreViewModel
+        binding.popularMoviesList.adapter = PopularMoviesListAdapter()
 
         return binding.root
     }
