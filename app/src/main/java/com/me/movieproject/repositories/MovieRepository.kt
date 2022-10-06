@@ -34,4 +34,14 @@ class MovieRepository {
         }
     }
 
+    suspend fun loadMoviesByGenres(genres_ids : List<Int>): Result<List<Movie>> {
+        return withContext(Dispatchers.IO){
+            try {
+                return@withContext Result.Success(Api.api.getMoviesByGenres(genres_ids = genres_ids).results)
+            }catch (e: Exception){
+                return@withContext Result.Error(e)
+            }
+        }
+    }
+
 }

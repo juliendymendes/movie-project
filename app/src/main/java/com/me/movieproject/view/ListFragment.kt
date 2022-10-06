@@ -11,12 +11,15 @@ import com.me.movieproject.adapters.GenresListAdapter
 import com.me.movieproject.adapters.PopularMoviesListAdapter
 import com.me.movieproject.databinding.FragmentListBinding
 import com.me.movieproject.model.Genre
+import com.me.movieproject.model.Movie
 import com.me.movieproject.viewmodel.GenreViewModel
+import com.me.movieproject.viewmodel.MovieViewModel
 
 class ListFragment : Fragment() {
 
     private lateinit var binding: FragmentListBinding
     private val genreViewModel: GenreViewModel by viewModels()
+    private val movieViewModel: MovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +30,7 @@ class ListFragment : Fragment() {
         binding.genresList.adapter = GenresListAdapter()
         binding.genreViewModel = genreViewModel
         binding.popularMoviesList.adapter = PopularMoviesListAdapter()
-
+        binding.movieViewModel = movieViewModel
         return binding.root
     }
 

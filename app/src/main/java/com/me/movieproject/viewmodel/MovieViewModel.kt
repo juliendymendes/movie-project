@@ -15,6 +15,9 @@ class MovieViewModel: ViewModel() {
     private var _popularMovies = MutableLiveData<List<Movie>?>()
     val popularMovies : LiveData<List<Movie>?> = _popularMovies
 
+    private var _moviesByGenres = MutableLiveData<List<Movie>?>()
+    val moviesByGenres : LiveData<List<Movie>?> = _moviesByGenres
+
     private var _status = MutableLiveData<String?>()
     val status : LiveData<String?> = _status
 
@@ -26,6 +29,16 @@ class MovieViewModel: ViewModel() {
         viewModelScope.launch {
             when(val result = movieRepository.loadPopularMovies()){
                 is Result.Success<List<Movie>> -> _popularMovies.value = result.data
+
+                is Result.Error -> _status.value = result.exception.message
+            }
+        }
+    }
+
+    fun getMovieByGenresList(genres_ids: List<Int>){
+        viewModelScope.launch {
+            when(val result = movieRepository.loadMoviesByGenres(genres_ids)){
+                is Result.Success<List<Movie>> -> _moviesByGenres.value = result.data
 
                 is Result.Error -> _status.value = result.exception.message
             }
