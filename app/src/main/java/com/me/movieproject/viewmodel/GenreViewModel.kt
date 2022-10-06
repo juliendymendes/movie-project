@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.me.movieproject.api.Api
 import com.me.movieproject.model.Genre
-import com.me.movieproject.model.GenresResponse
-import com.me.movieproject.model.Movie
 import com.me.movieproject.repositories.MovieRepository
 import com.me.movieproject.repositories.Result
 import kotlinx.coroutines.launch
@@ -22,6 +19,9 @@ class GenreViewModel(
     private var _status = MutableLiveData<String?>()
     val status : LiveData<String?> = _status
 
+    private var _selectedGenre = MutableLiveData<Genre?>()
+    val selectedGenre : LiveData<Genre?> = _selectedGenre
+
     init {
         getGenreList()
     }
@@ -34,6 +34,10 @@ class GenreViewModel(
                 is Result.Error -> _status.value = result.exception.message
             }
         }
+    }
+
+    fun setSelectedGenre(genre: Genre){
+        _selectedGenre.value = genre
     }
 
 }

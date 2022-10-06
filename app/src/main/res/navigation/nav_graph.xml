@@ -4,10 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/listFragment">
-
     <fragment
         android:id="@+id/listFragment"
         android:name="com.me.movieproject.view.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_moviesByGenresListFragment"
+            app:destination="@id/moviesByGenresListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.me.movieproject.view.DetailsFragment"
+        android:label="DetailsFragment" />
+    <fragment
+        android:id="@+id/moviesByGenresListFragment"
+        android:name="com.me.movieproject.view.MoviesByGenresListFragment"
+        android:label="MoviesByGenresListFragment" >
+        <action
+            android:id="@+id/action_moviesByGenresListFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

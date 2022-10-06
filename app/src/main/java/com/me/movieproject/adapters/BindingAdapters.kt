@@ -23,6 +23,13 @@ fun bindPopularMoviesList(recyclerView: RecyclerView,
     adapter.submitList(data)
 }
 
+@BindingAdapter("moviesByGenresList")
+fun bindMoviesByGenresList(recyclerView: RecyclerView,
+                          data: List<Movie>?) {
+    val adapter = recyclerView.adapter as MoviesByGenresListAdapter
+    adapter.submitList(data)
+}
+
 @BindingAdapter("imageUrl")
 fun bindImage(imageView: ImageView, imgPath: String?){
 

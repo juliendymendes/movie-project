@@ -6,13 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.me.movieproject.databinding.GenresListItemBinding
+import com.me.movieproject.listeners.GenreListener
 import com.me.movieproject.model.Genre
 
-class GenresListAdapter: ListAdapter<Genre, GenresListAdapter.GenreViewHolder>(DiffCallback) {
+class GenresListAdapter(private val clickListener: GenreListener)
+    : ListAdapter<Genre, GenresListAdapter.GenreViewHolder>(DiffCallback) {
+
     class GenreViewHolder(private var binding: GenresListItemBinding)
         : RecyclerView.ViewHolder(binding.root){
-            fun bind(genre: Genre){
+            fun bind(clickListener: GenreListener, genre: Genre){
                 binding.genre = genre
+                binding.clickListener = clickListener
             }
         }
 
@@ -21,7 +25,7 @@ class GenresListAdapter: ListAdapter<Genre, GenresListAdapter.GenreViewHolder>(D
     }
 
     override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(clickListener, getItem(position))
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Genre>(){

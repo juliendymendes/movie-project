@@ -6,6 +6,10 @@
         <variable
             name="genre"
             type="com.me.movieproject.model.Genre" />
+
+        <variable
+            name="clickListener"
+            type="com.me.movieproject.listeners.GenreListener" />
     </data>
 
     <FrameLayout
@@ -22,6 +26,7 @@
             android:padding="10dp"
             android:backgroundTint="@color/grey"
             android:fontFamily="@font/montserrat_semibold"
+            android:onClick="@{() -> clickListener.onClick(genre)}"
             />
     </FrameLayout>
 
