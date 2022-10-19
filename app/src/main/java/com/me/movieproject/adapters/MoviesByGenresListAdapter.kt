@@ -6,15 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.me.movieproject.databinding.MoviesByGenresListItemBinding
+import com.me.movieproject.listeners.MovieListener
 import com.me.movieproject.model.Movie
 
-class MoviesByGenresListAdapter
+class MoviesByGenresListAdapter(val clickListener: MovieListener)
     : ListAdapter<Movie, MoviesByGenresListAdapter.MoviesByGenresViewHolder>(DiffCallback) {
 
         class MoviesByGenresViewHolder(private var binding: MoviesByGenresListItemBinding)
             : RecyclerView.ViewHolder(binding.root){
-            fun bind(movie: Movie){
+            fun bind(movie: Movie, clickListener: MovieListener){
                 binding.movie = movie
+                binding.clickListener = clickListener
             }
         }
 
@@ -28,7 +30,7 @@ class MoviesByGenresListAdapter
         }
 
         override fun onBindViewHolder(holder: MoviesByGenresViewHolder, position: Int) {
-           holder.bind(getItem(position))
+           holder.bind(getItem(position), clickListener)
         }
 
 

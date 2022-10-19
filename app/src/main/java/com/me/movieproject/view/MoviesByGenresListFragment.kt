@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
+import com.me.movieproject.R
 import com.me.movieproject.adapters.MoviesByGenresListAdapter
 import com.me.movieproject.databinding.FragmentMoviesByGenresListBinding
+import com.me.movieproject.listeners.MovieListener
+import com.me.movieproject.model.Movie
 import com.me.movieproject.viewmodel.MovieViewModel
 
 
@@ -23,10 +27,17 @@ class MoviesByGenresListFragment : Fragment() {
         binding = FragmentMoviesByGenresListBinding.inflate(layoutInflater)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            moviesByGenresList.adapter = MoviesByGenresListAdapter()
+            moviesByGenresList.adapter = MoviesByGenresListAdapter(MovieListener { onMovieClick(it) })
             movieViewModel = this@MoviesByGenresListFragment.movieViewModel
         }
 
         return binding.root
+    }
+
+    private fun onMovieClick(movie: Movie){
+        movieViewModel.setSelectedMovie(movie)
+        movieViewModel.getMovieDetails(movie)
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_moviesByGenresListFragment_to_detailsFragment)
     }
 }

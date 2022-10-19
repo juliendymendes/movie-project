@@ -44,4 +44,14 @@ class MovieRepository {
         }
     }
 
+    suspend fun loadMovieById(id: Int): Result<Movie>{
+        return withContext(Dispatchers.IO){
+            try{
+                return@withContext Result.Success(Api.api.getMovieByID(id))
+            }catch (e: Exception){
+                return@withContext Result.Error(e)
+            }
+        }
+    }
+
 }

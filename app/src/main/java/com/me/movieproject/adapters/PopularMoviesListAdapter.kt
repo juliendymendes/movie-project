@@ -6,15 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.me.movieproject.databinding.PopularMoviesListItemBinding
+import com.me.movieproject.listeners.MovieListener
 import com.me.movieproject.model.Movie
 
-class PopularMoviesListAdapter
+class PopularMoviesListAdapter(private val clickListener: MovieListener)
     : ListAdapter<Movie, PopularMoviesListAdapter.PopularMoviesViewHolder>(DiffCallback) {
 
     class PopularMoviesViewHolder(private var binding: PopularMoviesListItemBinding)
         : RecyclerView.ViewHolder(binding.root){
-        fun bind(Movie: Movie){
+        fun bind(Movie: Movie, clickListener: MovieListener){
             binding.movie = Movie
+            binding.movieListener = clickListener
         }
     }
 
@@ -23,7 +25,7 @@ class PopularMoviesListAdapter
     }
 
     override fun onBindViewHolder(holder: PopularMoviesViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Movie>(){
