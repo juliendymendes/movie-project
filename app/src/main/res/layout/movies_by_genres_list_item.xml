@@ -6,12 +6,19 @@
         <variable
             name="movie"
             type="com.me.movieproject.model.Movie" />
+
+        <variable
+            name="clickListener"
+            type="com.me.movieproject.listeners.MovieListener" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> clickListener.onClick(movie)}"
         >
 
         <ImageView

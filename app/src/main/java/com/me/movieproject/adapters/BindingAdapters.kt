@@ -5,6 +5,7 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.me.movieproject.R
 import com.me.movieproject.model.Genre
 import com.me.movieproject.model.Movie
 import com.me.movieproject.utils.IMAGE_BASE_URL
@@ -34,9 +35,11 @@ fun bindMoviesByGenresList(recyclerView: RecyclerView,
 fun bindImage(imageView: ImageView, imgPath: String?){
 
     imgPath?.let {
-        val imgUrl = IMAGE_BASE_URL + "w200" + it
+        val imgUrl = IMAGE_BASE_URL + "w400" + it
         val imgUri = imgUrl.toUri().buildUpon().build()
-        imageView.load(imgUri)
+        imageView.load(imgUri){
+            placeholder(R.drawable.loading_animation)
+        }
     }
 
 
