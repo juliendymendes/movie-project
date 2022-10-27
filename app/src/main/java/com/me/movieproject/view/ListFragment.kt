@@ -35,6 +35,10 @@ class ListFragment : Fragment() {
         binding.genreViewModel = genreViewModel
         binding.popularMoviesList.adapter = PopularMoviesListAdapter(MovieListener { onMovieClick(it) })
         binding.movieViewModel = movieViewModel
+        binding.swipeLayout.setOnRefreshListener {
+            movieViewModel.getPopularMoviesList()
+            binding.swipeLayout.isRefreshing = false
+        }
 
         return binding.root
     }

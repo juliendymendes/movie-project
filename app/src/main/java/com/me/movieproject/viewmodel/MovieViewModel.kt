@@ -32,7 +32,7 @@ class MovieViewModel: ViewModel() {
         getPopularMoviesList()
     }
 
-    private fun getPopularMoviesList(){
+    fun getPopularMoviesList(){
         viewModelScope.launch {
             when(val result = movieRepository.loadPopularMovies()){
                 is Result.Success<List<Movie>> -> _popularMovies.value = result.data
