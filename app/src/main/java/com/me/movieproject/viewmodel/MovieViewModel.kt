@@ -8,7 +8,6 @@ import com.me.movieproject.model.Movie
 import com.me.movieproject.repositories.MovieRepository
 import com.me.movieproject.repositories.Result
 import kotlinx.coroutines.launch
-import java.net.MalformedURLException
 
 class MovieViewModel: ViewModel() {
     private val movieRepository = MovieRepository()
@@ -32,7 +31,7 @@ class MovieViewModel: ViewModel() {
         getPopularMoviesList()
     }
 
-    private fun getPopularMoviesList(){
+    fun getPopularMoviesList(){
         viewModelScope.launch {
             when(val result = movieRepository.loadPopularMovies()){
                 is Result.Success<List<Movie>> -> _popularMovies.value = result.data

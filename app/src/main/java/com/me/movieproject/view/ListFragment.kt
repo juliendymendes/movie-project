@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.utils.widget.MockView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.me.movieproject.R
 import com.me.movieproject.adapters.GenresListAdapter
 import com.me.movieproject.adapters.PopularMoviesListAdapter
@@ -25,6 +25,8 @@ class ListFragment : Fragment() {
     private val genreViewModel: GenreViewModel by activityViewModels()
     private val movieViewModel: MovieViewModel by activityViewModels()
 
+    private var filteredMovies: List<Movie>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +37,14 @@ class ListFragment : Fragment() {
         binding.genreViewModel = genreViewModel
         binding.popularMoviesList.adapter = PopularMoviesListAdapter(MovieListener { onMovieClick(it) })
         binding.movieViewModel = movieViewModel
+        binding.swipeLayout.setOnRefreshListener {
+            movieViewModel.getPopularMoviesList()
+            binding.swipeLayout.isRefreshing = false
+        }
+
+        binding.btnSearch.setOnClickListener{
+            filterMovies(binding.etSearch.text.toString())
+        }
 
         return binding.root
     }
@@ -42,14 +52,30 @@ class ListFragment : Fragment() {
     private fun onGenreClick(genre: Genre){
         genreViewModel.setSelectedGenre(genre)
         movieViewModel.getMovieByGenresList(listOf(genre.id))
-        findNavController().navigate(R.id.action_listFragment_to_moviesByGenresListFragment)
+        val bundle = Bundle()
+        bundle.putString("genre_name",  genre.name)
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_listFragment_to_moviesByGenresListFragment, bundle)
     }
 
     private fun onMovieClick(movie: Movie){
         movieViewModel.setSelectedMovie(movie)
         movieViewModel.getMovieDetails(movie)
+        val bundle = Bundle()
+        bundle.putString("movie_title",  movie.title)
         NavHostFragment.findNavController(this)
-            .navigate(R.id.action_listFragment_to_detailsFragment)
+            .navigate(R.id.action_listFragment_to_detailsFragment, bundle)
+    }
+
+    private fun filterMovies(searchText: String){
+        val searchTextLowercase = searchText.lowercase()
+
+        filteredMovies = movieViewModel.popularMovies.value?.filter {
+                movie -> movie.title.lowercase().contains(searchTextLowercase)
+        }
+        filteredMovies?.forEach{
+            println(it.title)
+        }
     }
 
 }

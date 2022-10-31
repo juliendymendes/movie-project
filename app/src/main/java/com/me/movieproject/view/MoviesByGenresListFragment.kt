@@ -37,7 +37,9 @@ class MoviesByGenresListFragment : Fragment() {
     private fun onMovieClick(movie: Movie){
         movieViewModel.setSelectedMovie(movie)
         movieViewModel.getMovieDetails(movie)
+        val bundle = Bundle()
+        bundle.putString("movie_title",  movie.title)
         NavHostFragment.findNavController(this)
-            .navigate(R.id.action_moviesByGenresListFragment_to_detailsFragment)
+            .navigate(R.id.action_moviesByGenresListFragment_to_detailsFragment, bundle)
     }
 }
