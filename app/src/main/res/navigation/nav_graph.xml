@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/listFragment">
     <fragment
         android:id="@+id/listFragment"
         android:name="com.me.movieproject.view.ListFragment"
-        android:label="ListFragment" >
+        android:label="Home" >
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -18,11 +17,22 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.me.movieproject.view.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="{movie_title}" >
+        <argument
+            android:name="movie_title"
+            app:argType="string"
+            />
+    </fragment>
     <fragment
         android:id="@+id/moviesByGenresListFragment"
         android:name="com.me.movieproject.view.MoviesByGenresListFragment"
-        android:label="MoviesByGenresListFragment" >
+        android:label="{genre_name}" >
+        <argument
+            android:name="genre_name"
+            app:argType="string"
+            />
+
+
         <action
             android:id="@+id/action_moviesByGenresListFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

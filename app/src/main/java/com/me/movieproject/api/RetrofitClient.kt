@@ -2,7 +2,6 @@ package com.me.movieproject.api
 
 import com.me.movieproject.model.GenresResponse
 import com.me.movieproject.model.Movie
-import com.me.movieproject.model.MovieResponse
 import com.me.movieproject.model.MoviesResponse
 import com.me.movieproject.utils.API_KEY
 import com.me.movieproject.utils.BASE_URL

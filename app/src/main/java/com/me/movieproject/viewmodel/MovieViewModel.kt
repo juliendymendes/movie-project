@@ -8,7 +8,6 @@ import com.me.movieproject.model.Movie
 import com.me.movieproject.repositories.MovieRepository
 import com.me.movieproject.repositories.Result
 import kotlinx.coroutines.launch
-import java.net.MalformedURLException
 
 class MovieViewModel: ViewModel() {
     private val movieRepository = MovieRepository()
